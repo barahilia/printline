@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "printline"
+version = "0.1"
+description = "Detect printed lines in a book page photo"
+dependencies = [
+    "opencv-python",
+]
+
+[project.scripts]
+pline-detect = "printline.processor:main"
+
+[tool.setuptools]
+packages = ["printline"]

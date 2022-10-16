@@ -1,0 +1,2 @@
+# Artefact of `pip install -e .`
+*.egg-info/
