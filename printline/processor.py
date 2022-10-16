@@ -12,8 +12,8 @@ def main():
     image = image[200: 600, 120: 620]
 
     vertical_strip_images = [
-        image[:, i: i + 100]
-        for i in range(0, 500, 100)
+        image[:, i: i + 50]
+        for i in range(0, 500, 50)
     ]
 
     vertical_spans = [
@@ -21,12 +21,17 @@ def main():
         for vertical_strip_image in vertical_strip_images
     ]
 
+    for span in vertical_spans:
+        print(span)
+
     out = cv.merge((image, image, image))
     color = 255, 0, 0
     thickness = 2
 
+    print('Accords')
+
     for accord in accords(vertical_spans):
-        print(accord)
+        print(accord, end=' - ')
 
         start, end = accord
 
@@ -34,6 +39,7 @@ def main():
         p2 = 495, end
         out = cv.rectangle(out, p1, p2, color, thickness)
 
+    print()
     cv.imwrite('out.png', out)
 
 
