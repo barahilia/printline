@@ -1,14 +1,21 @@
 #!/usr/bin/env python
+from argparse import ArgumentParser
 import cv2 as cv
 
-from strip import make_text_spans, text_vs_blank
-from builder import accords
+from printline.strip import make_text_spans, text_vs_blank
+from printline.builder import accords
+
+
+def parse_args():
+    parser = ArgumentParser()
+    parser.add_argument('image')
+    return parser.parse_args()
 
 
 def main():
-    print('hello from hell')
+    args = parse_args()
 
-    image = cv.imread('/home/iliab/proj/printline/printout.png', 0)
+    image = cv.imread(args.image, 0)
     image = image[200: 600, 120: 620]
 
     vertical_strip_images = [
