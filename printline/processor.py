@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 import cv2 as cv
 
 from printline.strip import make_text_spans, text_vs_blank
-from printline.builder import accords
+from printline.builder import accords, comp_nearby_tuples
 
 
 def parse_args():
@@ -37,7 +37,7 @@ def main():
 
     print('Accords')
 
-    for accord in accords(vertical_spans):
+    for accord in accords(vertical_spans, comp=comp_nearby_tuples):
         print(accord, end=' - ')
 
         start, end = accord

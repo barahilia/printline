@@ -1,4 +1,5 @@
-from printline.builder import build, pairs, triplets, accords
+from printline.builder import build, pairs, triplets, accords, \
+    comp_nearby_tuples
 
 
 def xtest_trivial():
@@ -99,4 +100,44 @@ def test_accords():
         [1, 2, 3],
     ]) == [
         2, 3
+    ]
+
+
+def test_tuple_accords():
+    assert accords([
+        [(1, 2), (3, 4)],
+        [(3, 4)],
+    ]) == [
+        (3, 4)
+    ]
+
+
+def test_comp():
+    checks = [
+        {'a': (1, 2), 'b': (1, 2), 'res': 0},
+        {'a': (10, 20), 'b': (8, 19), 'res': 0},
+        {'a': (10, 20), 'b': (9, 21), 'res': 0},
+        {'a': (10, 20), 'b': (11, 19), 'res': 0},
+        {'a': (10, 20), 'b': (11, 23), 'res': 0},
+
+        {'a': (10, 20), 'b': (7, 19), 'res': 1},
+        {'a': (10, 20), 'b': (8, 21), 'res': 1},
+        {'a': (10, 20), 'b': (7, 17), 'res': 1},
+        {'a': (10, 20), 'b': (10, 17), 'res': 1},
+
+        {'a': (10, 20), 'b': (11, 18), 'res': -1},
+        {'a': (10, 20), 'b': (10, 23), 'res': -1},
+        {'a': (10, 20), 'b': (11, 24), 'res': -1},
+    ]
+
+    for check in checks:
+        assert comp_nearby_tuples(check['a'], check['b']) == check['res']
+
+
+def test_nearby_accords():
+    assert accords([
+        [(10, 20)],
+        [(8, 19)],
+    ], comp=comp_nearby_tuples) == [
+        (10, 20)
     ]
