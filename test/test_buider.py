@@ -1,4 +1,4 @@
-from builder import build, pairs, triplets
+from printline.builder import build, pairs, triplets, accords
 
 
 def xtest_trivial():
@@ -74,3 +74,29 @@ def test_triplet_with_gaps():
         [0, 1, 2, 3, 4, 5],
         [1, 2, 3, 5, 7, 8],
     ]) == [1, 3, 5]
+
+
+def test_accords():
+    assert accords([
+        [1, 2, 3],
+        [1, 2, 3],
+        [1, 2, 3],
+    ]) == [
+        1, 2, 3
+    ]
+
+    assert accords([
+        [1, 2, 3],
+        [2, 3],
+        [2, 3],
+    ]) == [
+        2, 3
+    ]
+
+    assert accords([
+        [2, 3],
+        [1, 2, 3],
+        [1, 2, 3],
+    ]) == [
+        2, 3
+    ]
