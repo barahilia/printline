@@ -17,11 +17,14 @@ def main():
     args = parse_args()
 
     image = cv.imread(args.image, 0)
-    image = image[200: 600, 120: 620]
+    height, width = image.shape
+
+    image = image[:, int(0.15 * width): int(0.85 * width)]
+    height, width = image.shape
 
     vertical_strip_images = [
         image[:, i: i + args.width]
-        for i in range(0, 500, args.width)
+        for i in range(0, width, args.width)
     ]
 
     vertical_spans = [
@@ -45,7 +48,7 @@ def main():
         start, end = accord
 
         p1 = 5, start
-        p2 = 495, end
+        p2 = width - 5, end
         out = cv.rectangle(out, p1, p2, color, thickness)
 
     print()
