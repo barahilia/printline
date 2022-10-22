@@ -9,6 +9,7 @@ from printline.builder import accords, comp_nearby_tuples
 def parse_args():
     parser = ArgumentParser()
     parser.add_argument('image')
+    parser.add_argument('-w', '--width', type=int, default=50)
     return parser.parse_args()
 
 
@@ -19,8 +20,8 @@ def main():
     image = image[200: 600, 120: 620]
 
     vertical_strip_images = [
-        image[:, i: i + 50]
-        for i in range(0, 500, 50)
+        image[:, i: i + args.width]
+        for i in range(0, 500, args.width)
     ]
 
     vertical_spans = [
@@ -35,6 +36,7 @@ def main():
     color = 255, 0, 0
     thickness = 2
 
+    print()
     print('Accords')
 
     for accord in accords(vertical_spans, comp=comp_nearby_tuples):
