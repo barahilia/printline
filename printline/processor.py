@@ -19,7 +19,7 @@ def main():
     image = cv.imread(args.image, 0)
     height, width = image.shape
 
-    image = image[:, int(0.15 * width): int(0.85 * width)]
+    image = image[:, int(0.2 * width): int(0.85 * width)]
     height, width = image.shape
 
     vertical_strip_images = [
@@ -33,7 +33,7 @@ def main():
     ]
 
     for span in vertical_spans:
-        print(span)
+        print(span[: 3])
 
     out = cv.merge((image, image, image))
     color = 255, 0, 0
@@ -42,7 +42,9 @@ def main():
     print()
     print('Accords')
 
-    for accord in accords(vertical_spans, comp=comp_nearby_tuples):
+    res = accords(vertical_spans, comp=comp_nearby_tuples, same_ratio=0.8)
+
+    for accord in res:
         print(accord, end=' - ')
 
         start, end = accord

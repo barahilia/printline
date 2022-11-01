@@ -27,7 +27,7 @@ def comp_exact(a, b):
         return 1
 
 
-def _accords(arr, comp):
+def _accords(arr, comp, same_ratio):
     main, others = arr[0], arr[1:]
     indexes = [0] * len(others)
     values = [None] * len(others)
@@ -42,12 +42,14 @@ def _accords(arr, comp):
 
                 indexes[row] += 1
 
-        if {comp(main_value, value) for value in values} == {0}:
+        same = sum(1 for value in values if comp(value, main_value) == 0)
+
+        if same >= same_ratio * len(values):
             yield main_value
 
 
-def accords(arr, comp=None):
+def accords(arr, comp=None, same_ratio=1.):
     if comp is None:
         comp = comp_exact
 
-    return list(_accords(arr, comp))
+    return list(_accords(arr, comp, same_ratio))
