@@ -28,24 +28,29 @@ def comp_exact(a, b):
 
 
 def _accords(arr, comp, same_ratio):
-    main, others = arr[0], arr[1:]
-    indexes = [0] * len(others)
-    values = [None] * len(others)
+    indexes = [0] * len(arr)
+    values = sorted(set(sum(arr, start=[])))
 
-    for main_value in main:
-        for row in range(len(others)):
-            while indexes[row] < len(others[row]):
-                values[row] = others[row][indexes[row]]
+    for scan_value in values:
+        same = 0
 
-                if comp(values[row], main_value) >= 0:
+        for row in range(len(arr)):
+            while indexes[row] < len(arr[row]):
+                value = arr[row][indexes[row]]
+
+                res = comp(value, scan_value)
+
+                if res <= 0:
+                    indexes[row] += 1
+
+                if res == 0:
+                    same += 1
+
+                if res >= 0:
                     break
 
-                indexes[row] += 1
-
-        same = sum(1 for value in values if comp(value, main_value) == 0)
-
-        if same >= same_ratio * len(values):
-            yield main_value
+        if same >= same_ratio * len(arr):
+            yield scan_value
 
 
 def accords(arr, comp=None, same_ratio=1.):

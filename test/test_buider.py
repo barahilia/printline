@@ -106,5 +106,5 @@ def test_nearby_accords():
         [(10, 20)],
         [(8, 19)],
     ], comp=comp_nearby_tuples) == [
-        (10, 20)
+        (8, 19)
     ]
