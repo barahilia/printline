@@ -19,9 +19,6 @@ def main():
     image = cv.imread(args.image, 0)
     height, width = image.shape
 
-    image = image[:, int(0.2 * width): int(0.85 * width)]
-    height, width = image.shape
-
     vertical_strip_images = [
         image[:, i: i + args.width]
         for i in range(0, width, args.width)
@@ -42,7 +39,7 @@ def main():
     print()
     print('Accords')
 
-    res = accords(vertical_spans, comp=comp_nearby_tuples, same_ratio=0.3)
+    res = accords(vertical_spans, comp=comp_nearby_tuples, same_ratio=0.25)
 
     for accord in res:
         print(accord, end=' - ')
