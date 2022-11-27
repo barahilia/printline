@@ -97,14 +97,16 @@ def test_comp():
         {'a': (10, 20), 'b': (11, 24), 'res': -1},
     ]
 
+    comp = comp_nearby_tuples()
+
     for check in checks:
-        assert comp_nearby_tuples(check['a'], check['b']) == check['res']
+        assert comp(check['a'], check['b']) == check['res']
 
 
 def test_nearby_accords():
     assert accords([
         [(10, 20)],
         [(8, 19)],
-    ], comp=comp_nearby_tuples) == [
+    ], comp=comp_nearby_tuples()) == [
         (8, 19)
     ]

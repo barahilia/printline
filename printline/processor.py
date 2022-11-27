@@ -39,7 +39,7 @@ def main():
     print()
     print('Accords')
 
-    res = accords(vertical_spans, comp=comp_nearby_tuples, same_ratio=0.25)
+    res = accords(vertical_spans, comp=comp_nearby_tuples(6), same_ratio=0.25)
 
     for accord in res:
         print(accord, end=' - ')

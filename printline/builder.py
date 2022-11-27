@@ -1,21 +1,24 @@
-def comp_nearby_tuples(a, b):
-    if a == b:
-        return 0
+def comp_nearby_tuples(gap=2):
+    def func(a, b):
+        if a == b:
+            return 0
 
-    (a0, a1), (b0, b1) = a, b
-    a_len, b_len = (a1 - a0), (b1 - b0)
+        (a0, a1), (b0, b1) = a, b
+        a_len, b_len = (a1 - a0), (b1 - b0)
 
-    if abs(a_len - b_len) <= 2 and abs(a0 - b0) <= 2:
-        return 0
+        if abs(a_len - b_len) <= gap and abs(a0 - b0) <= gap:
+            return 0
 
-    if a0 == b0:
-        assert a1 != b1
-        a0, b0 = a1, b1
+        if a0 == b0:
+            assert a1 != b1
+            a0, b0 = a1, b1
 
-    if a0 < b0:
-        return -1
-    else:
-        return 1
+        if a0 < b0:
+            return -1
+        else:
+            return 1
+
+    return func
 
 
 def comp_exact(a, b):
