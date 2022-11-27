@@ -61,3 +61,34 @@ def accords(arr, comp=None, same_ratio=1.):
         comp = comp_exact
 
     return list(_accords(arr, comp, same_ratio))
+
+
+def _chain(arr):
+    indexes = [0] * len(arr)
+
+    while indexes[0] < len(arr[0]):
+        current = []
+        current.append(arr[0][indexes[0]])
+        indexes[0] += 1
+
+        for row in range(1, len(arr)):
+            last_value = current[-1]
+
+            while indexes[row] < len(arr[row]):
+                current_value = arr[row][indexes[row]]
+
+                if current_value < last_value - 1:
+                    indexes[row] += 1
+
+                else:
+                    if abs(last_value - current_value) <= 1:
+                        current.append(current_value)
+
+                    break
+
+            if len(current) == len(arr):
+                yield current
+
+
+def chain(arr):
+    return list(_chain(arr))
