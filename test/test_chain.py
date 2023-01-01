@@ -21,3 +21,13 @@ def test_longer_sequences():
         [4, 5, 6],
         [7, 8, 9],
     ]
+
+
+def test_single_gap():
+    assert chain([
+        [1, 4, 7],
+        [2, 8],
+    ]) == [
+        [1, 2],
+        [7, 8],
+    ]
