@@ -63,7 +63,7 @@ def accords(arr, comp=None, same_ratio=1.):
     return list(_accords(arr, comp, same_ratio))
 
 
-def _chain(arr):
+def _chain(arr, comp):
     indexes = [0] * len(arr)
 
     while indexes[0] < len(arr[0]):
@@ -77,11 +77,13 @@ def _chain(arr):
             while indexes[row] < len(arr[row]):
                 current_value = arr[row][indexes[row]]
 
-                if current_value < last_value - 1:
+                res = comp(current_value, last_value)
+
+                if res < 0:
                     indexes[row] += 1
 
                 else:
-                    if abs(last_value - current_value) <= 1:
+                    if res == 0:
                         current.append(current_value)
 
                     break
@@ -90,5 +92,8 @@ def _chain(arr):
                 yield current
 
 
-def chain(arr):
-    return list(_chain(arr))
+def chain(arr, comp=None):
+    if comp is None:
+        comp = comp_exact
+
+    return list(_chain(arr, comp))
