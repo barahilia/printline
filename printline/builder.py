@@ -63,17 +63,15 @@ def accords(arr, comp=None, same_ratio=1.):
     return list(_accords(arr, comp, same_ratio))
 
 
-def _chain(arr, comp):
+def _chain(arr, comp, same_ratio):
     indexes = [0] * len(arr)
 
     while indexes[0] < len(arr[0]):
-        current = []
-        current.append(arr[0][indexes[0]])
+        last_value = arr[0][indexes[0]]
+        current = [last_value]
         indexes[0] += 1
 
         for row in range(1, len(arr)):
-            last_value = current[-1]
-
             while indexes[row] < len(arr[row]):
                 current_value = arr[row][indexes[row]]
 
@@ -84,16 +82,21 @@ def _chain(arr, comp):
 
                 else:
                     if res == 0:
+                        last_value = current_value
                         current.append(current_value)
+                    else:
+                        current.append(None)
 
                     break
 
-            if len(current) == len(arr):
-                yield current
+        chained = sum(value is not None for value in current)
+
+        if chained >= same_ratio * len(arr):
+            yield current
 
 
-def chain(arr, comp=None):
+def chain(arr, comp=None, same_ratio=1.):
     if comp is None:
         comp = comp_exact
 
-    return list(_chain(arr, comp))
+    return list(_chain(arr, comp, same_ratio))
